@@ -210,9 +210,9 @@ cat("\n[4/4] 正在进行高级功能测试...\n")
 test_parallel <- function() {
   cat("\n>> 测试多线程功能...\n")
   set.seed(123)
-    test_data <- matrix(rnorm(1000), nrow = 20, ncol = 50)
+    test_data <- matrix(rnorm(1000), nrow = 20, ncol = 10000)
     rownames(test_data) <- paste("Sample", 1:20)
-    colnames(test_data) <- paste("Gene", 1:50)
+    colnames(test_data) <- paste("Gene", 1:10000)
 
   enableWGCNAThreads(2)
   start_time <- Sys.time()
