@@ -1,9 +1,8 @@
 # ----------------------------------------------------------------------
-# 完整的 WGCNA 算例运行、生物学合理性与稳健性分析脚本 (最终稳定版 V4)
+# 完整的 WGCNA 算例运行、生物学合理性与稳健性分析脚本
 # ----------------------------------------------------------------------
 
-# 此版本使用数字标签进行 Jaccard 相似度计算，以解决颜色标签匹配中出现的
-# 持续 0 相似度问题。
+# 此版本使用数字标签进行 Jaccard 相似度计算，以解决颜色标签匹配中出现的持续 0 相似度问题。
 
 # 1. 加载必要的库
 library(WGCNA)
@@ -16,7 +15,6 @@ allowWGCNAThreads()
 # ----------------------------------------------------------------------
 
 # 自定义函数 1: subsample_WGCNA (用于在子集上运行 WGCNA)
-# 修正：返回命名数字标签向量 (numeric labels)
 subsample_WGCNA <- function(datExpr_orig, sample_fraction = 0.8, power_val = 6) {
     # 抽取样本子集
     n_samples_orig = nrow(datExpr_orig)
@@ -33,10 +31,9 @@ subsample_WGCNA <- function(datExpr_orig, sample_fraction = 0.8, power_val = 6) 
         mergeCutHeight = 0.25,
         numericLabels = TRUE,
         verbose = 0,
-        maxBlockSize = 2000
+        maxBlockSize = 5000
     )
 
-    # 关键修正：返回命名数字标签向量 (numeric labels)
     numeric_labels <- net_sub$colors
     names(numeric_labels) <- colnames(datExpr_sub)
     return(numeric_labels)
@@ -106,7 +103,7 @@ cat("--- A. 模拟算例数据生成 ---\n")
 
 # 定义模拟数据的参数
 n_samples <- 50
-n_genes <- 2000
+n_genes <- 5000
 n_modules <- 5
 
 # 模拟模块结构
@@ -170,7 +167,8 @@ net = blockwiseModules(
     reassignThreshold = 0,
     mergeCutHeight = 0.25,
     numericLabels = TRUE, # 必须是 TRUE 以保证 moduleLabels 为数字
-    verbose = 0
+    verbose = 0,
+    maxBlockSize = 5000
 )
 
 moduleLabels = net$colors # 主网络数字标签 (用于稳健性分析)
@@ -260,3 +258,9 @@ cat("稳健性结论: 如果得分高于 0.7-0.8，则模块重现性好，结�
 # ----------------------------------------------------------------------
 
 cat("\n完整的 WGCNA 算例运行和分析完成。\n")
+end_time <- Sys.time()
+print(end_time)
+run_time <- end_time - start_time
+run_time_seconds <- as.numeric(run_time, units = "secs")
+print(run_time_seconds)
+print(paste("运行时间:", round(run_time_seconds, 2), "秒"))
