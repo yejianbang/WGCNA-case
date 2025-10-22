@@ -262,5 +262,4 @@ end_time <- Sys.time()
 print(end_time)
 run_time <- end_time - start_time
 run_time_seconds <- as.numeric(run_time, units = "secs")
-print(run_time_seconds)
 print(paste("运行时间:", round(run_time_seconds, 2), "秒"))
