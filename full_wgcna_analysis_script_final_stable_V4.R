@@ -138,7 +138,8 @@ save(datExpr, datTraits, file = file_name)
 load(file = file_name)
 
 cat(paste("模拟数据加载完成。样本数:", nrow(datExpr), "，基因数:", ncol(datExpr), "\n"))
-
+start_time <- Sys.time()
+print(paste("开始运行时间:", start_time))
 # ----------------------------------------------------------------------
 # B. WGCNA 运行算例
 # ----------------------------------------------------------------------
@@ -259,7 +260,7 @@ cat("稳健性结论: 如果得分高于 0.7-0.8，则模块重现性好，结�
 
 cat("\n完整的 WGCNA 算例运行和分析完成。\n")
 end_time <- Sys.time()
-print(end_time)
+print(paste("结束运行时间:", end_time))
 run_time <- end_time - start_time
 run_time_seconds <- as.numeric(run_time, units = "secs")
-print(paste("运行时间:", round(run_time_seconds, 2), "秒"))
+print(paste("总运行时间:", round(run_time_seconds, 2), "秒"))
