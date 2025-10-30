@@ -31,7 +31,6 @@ subsample_WGCNA <- function(datExpr_orig, sample_fraction = 0.8, power_val = 6) 
         mergeCutHeight = 0.25,
         numericLabels = TRUE,
         verbose = 0,
-        maxBlockSize = 5000
     )
 
     numeric_labels <- net_sub$colors
@@ -102,7 +101,7 @@ calculate_jaccard <- function(main_labels, sub_labels) {
 cat("--- A. 模拟算例数据生成 ---\n")
 
 # 定义模拟数据的参数
-n_samples <- 50
+n_samples <- 500
 n_genes <- 5000
 n_modules <- 5
 
@@ -169,7 +168,6 @@ net = blockwiseModules(
     mergeCutHeight = 0.25,
     numericLabels = TRUE, # 必须是 TRUE 以保证 moduleLabels 为数字
     verbose = 0,
-    maxBlockSize = 5000
 )
 
 moduleLabels = net$colors # 主网络数字标签 (用于稳健性分析)
